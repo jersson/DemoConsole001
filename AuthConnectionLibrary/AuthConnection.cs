@@ -48,14 +48,14 @@ namespace AuthConnectionLibrary
                 TokenEndpoint = new Uri(uriAuthorizationServer, TokenPath)
             };
 
-            var _webServerClient = new WebServerClient(authorizationServer, clientId, clientSecret);
+            var webServerClient = new WebServerClient(authorizationServer, clientId, clientSecret);
 
 
-            var state = _webServerClient.GetClientAccessToken();
+            var state = webServerClient.GetClientAccessToken();
             token = state.AccessToken;
 
             var resourceServerUri = new Uri(urlWebService);
-            var client = new HttpClient(_webServerClient.CreateAuthorizingHandler(token));
+            var client = new HttpClient(webServerClient.CreateAuthorizingHandler(token));
             var result = client.GetStringAsync(resourceServerUri).Result;
 
 
